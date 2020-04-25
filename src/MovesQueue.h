@@ -11,12 +11,13 @@ class MovesQueue
 {
 public:
 	MovesQueue();
-	bool empty();
-	int size();
-	Direction front();
-	void pop();
 	void add(Direction dir);
+	[[nodiscard]] bool empty() const;
+	Direction getMove();
 private:
+	[[nodiscard]] int size() const;
+	[[nodiscard]] Direction front() const ;
+	void pop();
 	Direction lastPushed;
 	std::queue<Direction> q;
 };

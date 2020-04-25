@@ -14,4 +14,7 @@ enum Direction
 
 	MAX_DIRECTION
 };
+
+bool isPositiveDirection(Direction direction);
+
 #endif //DIRECTION_B5F76368815248B7AC4EE2D7AD655856_H

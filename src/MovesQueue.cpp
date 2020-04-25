@@ -12,29 +12,29 @@ MovesQueue::MovesQueue()
 
 }
 
-bool MovesQueue::empty()
+bool MovesQueue::empty() const
 {
 	return q.empty();
 }
 
 void MovesQueue::add(Direction dir)
 {
-#ifdef DEBUG_ALL
+	if (lastPushed / 2 == dir / 2) return;
+	// now we guarantee we can add a move
+#ifdef SNAKKE_DEBUG_ALL
 	static int added{0};
 	std::cout << "MovesQueue::add(Direction dir):" << "move #" << ++added << std::endl;
 #endif
-	if (lastPushed / 2 == dir / 2)
-		return;
 	lastPushed = dir;
 	q.push(dir);
 }
 
-int MovesQueue::size()
+int MovesQueue::size() const
 {
 	return static_cast<int>(q.size());
 }
 
-Direction MovesQueue::front()
+Direction MovesQueue::front() const
 {
 	return q.front();
 }
@@ -43,6 +43,13 @@ void MovesQueue::pop()
 {
 	assert(!empty());
 	q.pop();
+}
+
+Direction MovesQueue::getMove()
+{
+	Direction ret = front();
+	pop();
+	return ret;
 }
 
 void handleMoveKeys(MovesQueue &q)

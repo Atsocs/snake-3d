@@ -12,12 +12,22 @@
 class Vector
 {
 public:
-	explicit Vector(int dimension=DIMENSION);
+	explicit Vector(int dimension = DIMENSION);
 	void centralize();
-private:
 	std::vector<int> origin;
 	Direction direction;
+	[[nodiscard]] bool inSamePlaceAs(const Vector &v) const;
+	[[nodiscard]] bool isOutOfBounds() const;
+	Vector &operator+=(int value);
+	Vector &operator-=(int value);
+	Vector &operator++();
+	Vector &operator--();
+	friend Vector operator+(const Vector &v, int value);
+	friend Vector operator+(int value, const Vector &v);
 };
+
+Vector operator+(const Vector &v, int value);
+Vector operator+(int value, const Vector &v);
 
 
 #endif //VECTOR_C14AC72190144CEC9580B7AF89EABAD3_H

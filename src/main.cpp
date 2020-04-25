@@ -1,7 +1,9 @@
+#include <iostream>
 #include "Constants.h"
 #include "okay.h"
 #include "MovesQueue.h"
 #include "raylib.h"
+#include "Snake.h"
 
 int main(int, char**)
 {
@@ -10,7 +12,9 @@ int main(int, char**)
 	const int screenWidth = SCREEN_WIDTH;
 	const int screenHeight = SCREEN_HEIGHT;
 
+	int frames{0};
 	MovesQueue movesQueue{};
+	Snake snake{3};
 	InitWindow(screenWidth, screenHeight, "Snakke");
 
 	SetTargetFPS(TARGET_FPS);               // Set our game to run at 60 frames-per-second
@@ -22,6 +26,18 @@ int main(int, char**)
 		// Update
 		//----------------------------------------------------------------------------------
 		handleMoveKeys(movesQueue);
+		if (isSpecialFrame(frames, snake.getSpeed()))
+		{
+			if (movesQueue.empty())
+			{
+				snake.move();
+			}
+			else
+			{
+				snake.turnTo(movesQueue.getMove());
+			}
+		}
+		++frames;
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -31,6 +47,8 @@ int main(int, char**)
 		ClearBackground(RAYWHITE);
 
 		DrawText("Snakke", GetScreenWidth() / 2 - 185, GetScreenHeight() / 2 - 50, 100, LIGHTGRAY);
+
+		snake.draw();
 
 		DrawBorder();
 
