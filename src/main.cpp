@@ -1,15 +1,19 @@
+#include "Constants.h"
+#include "okay.h"
+#include "MovesQueue.h"
 #include "raylib.h"
 
-int main(void)
+int main(int, char**)
 {
 	// Initialization
 	//--------------------------------------------------------------------------------------
-	const int screenWidth = 800;
-	const int screenHeight = 450;
+	const int screenWidth = SCREEN_WIDTH;
+	const int screenHeight = SCREEN_HEIGHT;
 
-	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	MovesQueue movesQueue{};
+	InitWindow(screenWidth, screenHeight, "Snakke");
 
-	SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+	SetTargetFPS(TARGET_FPS);               // Set our game to run at 60 frames-per-second
 	//--------------------------------------------------------------------------------------
 
 	// Main game loop
@@ -17,7 +21,7 @@ int main(void)
 	{
 		// Update
 		//----------------------------------------------------------------------------------
-		// TODO: Update your variables here
+		handleMoveKeys(movesQueue);
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -26,7 +30,9 @@ int main(void)
 
 		ClearBackground(RAYWHITE);
 
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+		DrawText("Snakke", GetScreenWidth() / 2 - 185, GetScreenHeight() / 2 - 50, 100, LIGHTGRAY);
+
+		DrawBorder();
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
