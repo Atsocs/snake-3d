@@ -6,8 +6,10 @@
 #define SNAKE_E8F14F9C6AAF4C8C9A63581A42E82530_H
 
 
-#include <deque>
 #include "Vector.h"
+#include "Fruit.h"
+#include <deque>
+#include <iostream>
 
 class Snake
 {
@@ -17,7 +19,10 @@ public:
 	void draw() const;
 	void move(bool checkForCollision = true);
 	void turnTo(Direction direction, bool checkForCollision = true);
+	void eatFruit(Fruit &fruit);
+	[[nodiscard]] bool isPositionOccupied(const Position &p) const;
 	[[nodiscard]] double getSpeed() const;
+	[[nodiscard]] Position getHeadPosition() const;
 private:
 	[[nodiscard]] bool willCollide() const;
 	[[nodiscard]] static bool
@@ -26,13 +31,17 @@ private:
 	static void drawCell(int x, int y);
 	static void drawCell(int x, int y, Color color);
 	bool alive;
+	int health;
 	int size;
 	double speed;
 	Vector head;
 	Vector tail;
 	std::deque<Vector> turns;
+	std::deque<Fruit> mouth;
+	std::deque<Fruit> stomach;
+	friend std::ostream & operator<< (std::ostream & os, const Snake & snake);
 };
 
-void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &myTurns);
-
+void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &myTurns, bool isTailSupposedToMove);
+std::ostream & operator<< (std::ostream & os, const Snake & snake);
 #endif //SNAKE_E8F14F9C6AAF4C8C9A63581A42E82530_H

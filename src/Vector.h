@@ -7,12 +7,14 @@
 
 #include "Constants.h"
 #include "Direction.h"
+#include "Position.h"
 #include <vector>
 
 class Vector
 {
 public:
 	explicit Vector(int dimension = DIMENSION);
+	explicit Vector(const Position &p);
 	void centralize();
 	std::vector<int> origin;
 	Direction direction;

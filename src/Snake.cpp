@@ -8,7 +8,8 @@
 #include <iostream>
 
 Snake::Snake(int size, double speed)
-		: alive{true}, size{size}, speed{speed}, head{}, tail{}, turns{}
+		: alive{true}, health{HEALTH_MAX}, size{size}, speed{speed}, head{}, tail{}, turns{}, mouth{},
+		  stomach{}
 {
 	resetHeadTail();
 }
@@ -60,10 +61,14 @@ void Snake::turnTo(Direction direction, bool checkForCollision)
 	{ return; }
 	assert(direction / 2 != head.direction / 2);
 	head.direction = direction;
-	turns.push_back(head);
+	if (size > 1)
+	{ turns.push_back(head); }
+	else
+	{ tail.direction = direction; }
 	if (checkForCollision && willCollide())
 	{
-		turns.pop_back();
+		if (size > 1)
+		{ turns.pop_back(); }
 		alive = false;
 #ifdef SNAKKE_DEBUG
 		std::cout << "Snake::turnTo(): " << "snake died for it was about to collide" << std::endl;
@@ -72,10 +77,14 @@ void Snake::turnTo(Direction direction, bool checkForCollision)
 
 	}
 	move(false);
+
 }
 
 void Snake::move(bool checkForCollision)
 {
+#ifdef SNAKKE_DEBUG
+//	std::cout << "mouth: " << mouth.size() << " stomach: " << stomach.size() << std::endl;
+#endif
 	if (!alive)
 	{ return; }
 	else if (checkForCollision && willCollide())
@@ -89,18 +98,27 @@ void Snake::move(bool checkForCollision)
 	else
 	{
 		// now we know snake is alive and can move safely
-		incrementHeadTailTurns(head, tail, turns);
+		incrementHeadTailTurns(head, tail, turns, mouth.empty());
+		if (!mouth.empty())
+		{
+			++size;
+			stomach.push_back(mouth.front());
+			mouth.pop_front();
+		}
 	}
 }
 
-void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &myTurns)
+void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &myTurns, bool isTailSupposedToMove)
 {
 	++myHead;
-	++myTail;
-	if (!myTurns.empty() && myTail.inSamePlaceAs(myTurns.front()))
+	if (isTailSupposedToMove)
 	{
-		myTail.direction = myTurns.front().direction;
-		myTurns.pop_front();
+		++myTail;
+		if (!myTurns.empty() && myTail.inSamePlaceAs(myTurns.front()))
+		{
+			myTail.direction = myTurns.front().direction;
+			myTurns.pop_front();
+		}
 	}
 }
 
@@ -109,18 +127,21 @@ bool Snake::willCollide() const
 	Vector myHead = head;
 	Vector myTail = tail;
 	std::deque<Vector> myTurns = turns;
-	incrementHeadTailTurns(myHead, myTail, myTurns);
+	incrementHeadTailTurns(myHead, myTail, myTurns, mouth.empty());
 	return isCollidingState(myHead, myTail, myTurns);
 }
 
-bool Snake::isCollidingState(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns)
+bool
+Snake::isCollidingState(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns)
 {
-	if (myHead.isOutOfBounds()) return true;
+	if (myHead.isOutOfBounds())
+	{ return true; }
+
 	Vector checkingFor = myTail;
 	Vector checkUntil = (myTurns.empty() ? myHead : myTurns.front());
 	int index{0};
 
-	while (index < static_cast<int>(myTurns.size()))
+	auto checkLine = [&]()
 	{
 		while (!checkingFor.inSamePlaceAs(checkUntil))
 		{
@@ -134,24 +155,93 @@ bool Snake::isCollidingState(const Vector &myHead, const Vector &myTail, const s
 			}
 		}
 		checkingFor.direction = checkUntil.direction;
+		return false;
+	};
+	while (index < static_cast<int>(myTurns.size()))
+	{
+		if (checkLine()) return true;
 		++index;
 		checkUntil = (index < myTurns.size() ? myTurns[index] : myHead);
 	}
-	checkUntil = myHead;
-	while (!checkingFor.inSamePlaceAs(checkUntil))
-	{
-		if (myHead.inSamePlaceAs(checkingFor))
-		{
-			return true;
-		}
-		else
-		{
-			++checkingFor;
-		}
-	}
-	return false;
-
+	bool ret = checkLine();
+	return ret;
 }
 
+void Snake::eatFruit(Fruit &fruit)
+{
+	mouth.push_back(fruit);
+	fruit.eat();
+
+	health += fruit.healthBenefit;
+	if (health > HEALTH_MAX)
+	{ health = HEALTH_MAX; }
+	if (health <= 0)
+	{
+		health = 0;
+//		die();
+	}
+}
+
+bool Snake::isPositionOccupied(const Position &p) const
+{
+	const Vector toTest{p}; //todo: correct this ugly solution
+	const auto &myTail = tail;
+	const auto &myTurns = turns;
+	const auto &myHead = head;
+	Vector checkingFor = myTail;
+	Vector checkUntil = (myTurns.empty() ? myHead : myTurns.front());
+	int index{0};
+
+	auto checkLine = [&]()
+	{
+		while (!checkingFor.inSamePlaceAs(checkUntil))
+		{
+			if (toTest.inSamePlaceAs(checkingFor)) //todo: correct this ugly solution
+			{
+				return true;
+			}
+			else
+			{
+				++checkingFor;
+			}
+		}
+		checkingFor.direction = checkUntil.direction;
+		return false;
+	};
+	while (index < static_cast<int>(myTurns.size()))
+	{
+		if (checkLine()) return true;
+		++index;
+		checkUntil = (index < myTurns.size() ? myTurns[index] : myHead);
+	}
+	return checkLine();
+}
+
+Position Snake::getHeadPosition() const
+{
+	return Position{head.origin};
+}
+
+std::ostream &operator<<(std::ostream &os, const Snake &snake)
+{
+	using std::endl;
+	os << "<Snake>" << endl;
+	os << "alive: " << std::boolalpha << snake.alive << std::noboolalpha << std::endl;
+	os << "health: " << snake.health << endl;
+	os << "size: " << snake.size << endl;
+	os << "speed: " << snake.speed << endl;
+	os << "head: " << snake.head << endl; //todo
+	os << "tail: " << snake.tail << endl;
+	return os;
+//	bool alive;
+//	int health;
+//	int size;
+//	double speed;
+//	Vector head;
+//	Vector tail;
+//	std::deque<Vector> turns;
+//	std::deque<Fruit> mouth;
+//	std::deque<Fruit> stomach;
+}
 
 

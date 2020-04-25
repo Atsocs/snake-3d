@@ -11,6 +11,12 @@ Vector::Vector(int dimension)
 	assert(origin.size() == dimension);
 }
 
+Vector::Vector(const Position &p)
+		: origin{p.origin}, direction{static_cast<Direction>(0)}
+{
+
+}
+
 void Vector::centralize()
 {
 	for (auto &coordinate : origin)

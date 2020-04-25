@@ -4,6 +4,7 @@
 #include "MovesQueue.h"
 #include "raylib.h"
 #include "Snake.h"
+#include "Game.h"
 
 int main(int, char**)
 {
@@ -14,14 +15,7 @@ int main(int, char**)
 
 	int frames{0};
 	MovesQueue movesQueue{};
-	Snake snake{12};
-	snake.turnTo(DIR_UP, false);
-	snake.move(false);	snake.move(false);
-	snake.turnTo(DIR_LEFT, false);
-	snake.move(false);	snake.move(false);
-	snake.move(false);	snake.move(false);
-	snake.turnTo(DIR_UP, false);
-	snake.turnTo(DIR_RIGHT, false);
+	Game game{};
 	InitWindow(screenWidth, screenHeight, "Snakke");
 
 	SetTargetFPS(TARGET_FPS);               // Set our game to run at 60 frames-per-second
@@ -33,15 +27,15 @@ int main(int, char**)
 		// Update
 		//----------------------------------------------------------------------------------
 		handleMoveKeys(movesQueue);
-		if (isSpecialFrame(frames, snake.getSpeed()))
+		if (isSpecialFrame(frames, game.getSnakeSpeed()))
 		{
 			if (movesQueue.empty())
 			{
-				snake.move();
+				game.moveSnake();
 			}
 			else
 			{
-				snake.turnTo(movesQueue.getMove());
+				game.turnSnakeTo(movesQueue.getMove());
 			}
 		}
 		++frames;
@@ -55,7 +49,7 @@ int main(int, char**)
 
 		DrawText("Snakke", GetScreenWidth() / 2 - 185, GetScreenHeight() / 2 - 50, 100, LIGHTGRAY);
 
-		snake.draw();
+		game.draw();
 
 		DrawBorder();
 

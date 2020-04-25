@@ -16,6 +16,8 @@ void DrawBorder()
 
 bool isSpecialFrame(int frames, double speed)
 {
-	if (speed == 0.0) return false;
-	 return frames % static_cast<int>(TARGET_FPS / speed) == 0;
+	if (speed == 0.0)
+	{ return false; }
+	const int mod = static_cast<int>(TARGET_FPS / speed);
+	return frames % mod == (mod - 1);
 }
