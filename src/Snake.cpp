@@ -54,18 +54,31 @@ double Snake::getSpeed() const
 	return speed;
 }
 
-void Snake::turnTo(Direction direction)
+void Snake::turnTo(Direction direction, bool checkForCollision)
 {
-	if (!alive) return;
+	if (!alive)
+	{ return; }
 	assert(direction / 2 != head.direction / 2);
 	head.direction = direction;
-	move();
+	turns.push_back(head);
+	if (checkForCollision && willCollide())
+	{
+		turns.pop_back();
+		alive = false;
+#ifdef SNAKKE_DEBUG
+		std::cout << "Snake::turnTo(): " << "snake died for it was about to collide" << std::endl;
+#endif
+		return;
+
+	}
+	move(false);
 }
 
-void Snake::move()
+void Snake::move(bool checkForCollision)
 {
-	if (!alive) return;
-	if (willCollide())
+	if (!alive)
+	{ return; }
+	else if (checkForCollision && willCollide())
 	{
 		alive = false;
 #ifdef SNAKKE_DEBUG
@@ -73,15 +86,18 @@ void Snake::move()
 #endif
 		return;
 	}
-	// now we know snake is alive and can move safely
-	incrementHeadTailTurns(head, tail, turns);
+	else
+	{
+		// now we know snake is alive and can move safely
+		incrementHeadTailTurns(head, tail, turns);
+	}
 }
 
 void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &myTurns)
 {
 	++myHead;
 	++myTail;
-	if (myTail.inSamePlaceAs(myTurns.front()))
+	if (!myTurns.empty() && myTail.inSamePlaceAs(myTurns.front()))
 	{
 		myTail.direction = myTurns.front().direction;
 		myTurns.pop_front();
@@ -90,9 +106,9 @@ void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &
 
 bool Snake::willCollide() const
 {
-	auto myHead = head;
-	auto myTail = tail;
-	auto myTurns = turns;
+	Vector myHead = head;
+	Vector myTail = tail;
+	std::deque<Vector> myTurns = turns;
 	incrementHeadTailTurns(myHead, myTail, myTurns);
 	return isCollidingState(myHead, myTail, myTurns);
 }
@@ -104,25 +120,36 @@ bool Snake::isCollidingState(const Vector &myHead, const Vector &myTail, const s
 	Vector checkUntil = (myTurns.empty() ? myHead : myTurns.front());
 	int index{0};
 
-	auto checkLine = [&]()
+	while (index < static_cast<int>(myTurns.size()))
 	{
 		while (!checkingFor.inSamePlaceAs(checkUntil))
 		{
-			if (myHead.inSamePlaceAs(checkingFor)) return true;
-			++checkingFor;
+			if (myHead.inSamePlaceAs(checkingFor))
+			{
+				return true;
+			}
+			else
+			{
+				++checkingFor;
+			}
 		}
-		return false;
-	};
-
-	while (index < static_cast<int>(myTurns.size()))
-	{
-		if (checkLine()) return true;
 		checkingFor.direction = checkUntil.direction;
 		++index;
-		checkUntil = myTurns[index];
+		checkUntil = (index < myTurns.size() ? myTurns[index] : myHead);
 	}
 	checkUntil = myHead;
-	return checkLine();
+	while (!checkingFor.inSamePlaceAs(checkUntil))
+	{
+		if (myHead.inSamePlaceAs(checkingFor))
+		{
+			return true;
+		}
+		else
+		{
+			++checkingFor;
+		}
+	}
+	return false;
 
 }
 

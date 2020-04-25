@@ -15,15 +15,15 @@ public:
 	explicit Snake(int size = SNAKE_INITIAL_SIZE, double speed = SNAKE_INITIAL_SPEED);
 	explicit Snake(double speed);
 	void draw() const;
-	void move();
-	void turnTo(Direction direction);
+	void move(bool checkForCollision = true);
+	void turnTo(Direction direction, bool checkForCollision = true);
 	[[nodiscard]] double getSpeed() const;
 private:
 	[[nodiscard]] bool willCollide() const;
 	[[nodiscard]] static bool
 	isCollidingState(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns);
 	void resetHeadTail();
-	static void drawCell(int x, int y) ;
+	static void drawCell(int x, int y);
 	static void drawCell(int x, int y, Color color);
 	bool alive;
 	int size;

@@ -14,7 +14,14 @@ int main(int, char**)
 
 	int frames{0};
 	MovesQueue movesQueue{};
-	Snake snake{3};
+	Snake snake{12};
+	snake.turnTo(DIR_UP, false);
+	snake.move(false);	snake.move(false);
+	snake.turnTo(DIR_LEFT, false);
+	snake.move(false);	snake.move(false);
+	snake.move(false);	snake.move(false);
+	snake.turnTo(DIR_UP, false);
+	snake.turnTo(DIR_RIGHT, false);
 	InitWindow(screenWidth, screenHeight, "Snakke");
 
 	SetTargetFPS(TARGET_FPS);               // Set our game to run at 60 frames-per-second
