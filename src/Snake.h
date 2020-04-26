@@ -41,6 +41,7 @@ private:
 	std::deque<Fruit> mouth;
 	std::deque<Fruit> stomach;
 	friend std::ostream & operator<< (std::ostream & os, const Snake & snake);
+	static bool check_if(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns, const Vector toTest);
 };
 
 void incrementHeadTailTurns(Vector &myHead, Vector &myTail, std::deque<Vector> &myTurns, bool isTailSupposedToMove);
