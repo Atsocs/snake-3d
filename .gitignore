@@ -1,0 +1,12 @@
+#######################
+####    PROJECT    ####
+#######################
+cmake-build-default
+cmake-build-debug
+cmake-build-release
+cmake-build-relwithdebinfo
+*.exe
+*.out
+*.app
+.idea
+
