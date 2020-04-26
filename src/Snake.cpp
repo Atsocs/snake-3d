@@ -169,10 +169,10 @@ Snake::isCollidingState(const Vector &myHead, const Vector &myTail, const std::d
 
 void Snake::eatFruit(Fruit &fruit)
 {
-	mouth.push_back(fruit);
 	fruit.eat();
+	mouth.push_back(fruit);
 
-	health += fruit.healthBenefit;
+	health += fruit.hp;
 	if (health > HEALTH_MAX)
 	{ health = HEALTH_MAX; }
 	if (health <= 0)
@@ -224,24 +224,33 @@ Position Snake::getHeadPosition() const
 
 std::ostream &operator<<(std::ostream &os, const Snake &snake)
 {
+	static constexpr int identationCount = 1;
+	auto identation = std::string(identationCount, '\t');
 	using std::endl;
-	os << "<Snake>" << endl;
-	os << "alive: " << std::boolalpha << snake.alive << std::noboolalpha << std::endl;
-	os << "health: " << snake.health << endl;
-	os << "size: " << snake.size << endl;
-	os << "speed: " << snake.speed << endl;
-	os << "head: " << snake.head << endl; //todo
-	os << "tail: " << snake.tail << endl;
+	os << "Snake: " << (snake.alive ? "alive" : "dead") << ", health " << snake.health << ", size " << snake.size
+	   << ", speed " << snake.speed << endl;
+	os << identation << "head: " << snake.head << ", tail: " << snake.tail << endl;
+	os << identation << "turns" << (snake.turns.empty() ? " is empty." : ": ") << endl;
+	for (const auto &turn : snake.turns)
+	{
+		os << identation << '\t' << turn << endl;
+	}
+	os << identation << "mouth" << (snake.mouth.empty() ? " is empty." : ": ") << endl;
+	for (const auto &fruit : snake.mouth)
+	{
+		os << identation << '\t' << fruit << endl;
+	}
+	os << identation << "stomach" << (snake.stomach.empty() ? " is empty." : ": ") << endl;
+	for (const auto &fruit : snake.stomach)
+	{
+		os << identation << '\t' << fruit << endl;
+	}
 	return os;
-//	bool alive;
-//	int health;
-//	int size;
-//	double speed;
-//	Vector head;
-//	Vector tail;
-//	std::deque<Vector> turns;
-//	std::deque<Fruit> mouth;
-//	std::deque<Fruit> stomach;
+}
+
+bool Snake::isAlive() const
+{
+	return alive;
 }
 
 

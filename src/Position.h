@@ -6,6 +6,8 @@
 #define POSITION_574FC5C34CDD459C92BA1F462392BE14_H
 
 #include "Constants.h"
+
+#include <iostream>
 #include <vector>
 
 class Position
@@ -18,6 +20,6 @@ public:
 };
 
 bool operator==(const Position &p1, const Position &p2);
-
+std::ostream &operator<<(std::ostream &os, const Position &position);
 
 #endif //POSITION_574FC5C34CDD459C92BA1F462392BE14_H

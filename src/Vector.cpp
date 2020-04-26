@@ -2,7 +2,9 @@
 // Created by atsocs on 25/04/2020.
 //
 
+#include "okay.h"
 #include "Vector.h"
+#include <iomanip>
 #include <cassert>
 
 Vector::Vector(int dimension)
@@ -78,4 +80,19 @@ bool Vector::isOutOfBounds() const
 		if (coordinate < 0 || coordinate >= BOARD_SIZE) return true;
 	}
 	return false;
+}
+
+std::ostream &operator<<(std::ostream &os, const Vector &vector)
+{
+	static const std::vector<std::string_view> directions{"RIGHT", "LEFT", "DOWN", "UP"};
+	assert(directions.size() == MAX_DIRECTION);
+
+	static const int digits = numDigits(BOARD_SIZE - 1);
+	os << '[';
+	for (int index{0}; index < vector.origin.size(); ++index)
+	{
+		os << std::setw(digits) << vector.origin[index] << ' ';
+	}
+	os << directions[vector.direction] << ']';
+	return os;
 }

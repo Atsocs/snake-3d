@@ -6,7 +6,7 @@
 #include "Snake.h"
 #include "Game.h"
 
-int main(int, char**)
+int main(int, char **)
 {
 	// Initialization
 	//--------------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ int main(int, char**)
 
 	int frames{0};
 	MovesQueue movesQueue{};
-	Game game{};
+	Game game{Snake{8.0}};
 	InitWindow(screenWidth, screenHeight, "Snakke");
 
 	SetTargetFPS(TARGET_FPS);               // Set our game to run at 60 frames-per-second
@@ -29,6 +29,10 @@ int main(int, char**)
 		handleMoveKeys(movesQueue);
 		if (isSpecialFrame(frames, game.getSnakeSpeed()))
 		{
+#ifdef SNAKKE_DEBUG
+			if (game.alive())
+			{ std::cout << game << std::endl; }
+#endif
 			if (movesQueue.empty())
 			{
 				game.moveSnake();

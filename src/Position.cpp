@@ -2,9 +2,12 @@
 // Created by atsocs on 25/04/2020.
 //
 
-#include <cassert>
-#include <utility>
+#include "okay.h"
 #include "Position.h"
+
+#include <cassert>
+#include <iomanip>
+#include <utility>
 
 Position::Position(int dimension)
 		: origin(dimension)
@@ -29,4 +32,18 @@ void Position::setRandom()
 bool operator==(const Position &p1, const Position &p2)
 {
 	return p1.origin == p2.origin;
+}
+
+std::ostream &operator<<(std::ostream &os, const Position &position)
+{
+	static const int digits = numDigits(BOARD_SIZE - 1);
+	os << '[';
+	for (int index{0}; index < position.origin.size(); ++index)
+	{
+		os << std::setw(digits) << position.origin[index];
+		if (index + 1 != position.origin.size())
+		{ os << ' '; }
+	}
+	os << ']';
+	return os;
 }

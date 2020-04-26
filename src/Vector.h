@@ -9,6 +9,7 @@
 #include "Direction.h"
 #include "Position.h"
 #include <vector>
+#include <iostream>
 
 class Vector
 {
@@ -26,10 +27,12 @@ public:
 	Vector &operator--();
 	friend Vector operator+(const Vector &v, int value);
 	friend Vector operator+(int value, const Vector &v);
+
+	friend std::ostream & operator<< (std::ostream & os, const Vector & vector);
 };
 
 Vector operator+(const Vector &v, int value);
 Vector operator+(int value, const Vector &v);
 
-
+std::ostream & operator<< (std::ostream & os, const Vector & vector);
 #endif //VECTOR_C14AC72190144CEC9580B7AF89EABAD3_H

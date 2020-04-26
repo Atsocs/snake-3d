@@ -23,6 +23,7 @@ public:
 	[[nodiscard]] bool isPositionOccupied(const Position &p) const;
 	[[nodiscard]] double getSpeed() const;
 	[[nodiscard]] Position getHeadPosition() const;
+	[[nodiscard]] bool isAlive() const;
 private:
 	[[nodiscard]] bool willCollide() const;
 	[[nodiscard]] static bool

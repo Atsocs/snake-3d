@@ -7,7 +7,7 @@
 
 #include "raylib.h"
 
-#define SNAKKE_DEBUG
+//#define SNAKKE_DEBUG
 //#define SNAKKE_DEBUG_ALL
 
 #define TARGET_FPS 60

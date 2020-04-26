@@ -16,6 +16,7 @@ public:
 	Game();
 	explicit Game(Snake snake);
 	void draw();
+	[[nodiscard]] bool alive() const;
 	void generateFruit();
 	double getSnakeSpeed();
 	void moveSnake();
@@ -29,7 +30,11 @@ private:
 	[[nodiscard]] bool isPositionOccupied(const Position &position) const;
 	void drawFruits();
 	static void drawFruit(int x, int y);
+
+	friend std::ostream &operator<<(std::ostream &os, const Game &game);
+	void move();
 };
 
+std::ostream &operator<<(std::ostream &os, const Game &game);
 
 #endif //GAME_1A8FE4FF80444B289D05EF4CA4648FE7_H

@@ -17,8 +17,10 @@ public:
 	bool eaten;
 	Position position;
 	int score;
-	int healthBenefit;
+	int hp;
+	friend std::ostream & operator<< (std::ostream & os, const Fruit & fruit);
 };
 
+std::ostream & operator<< (std::ostream & os, const Fruit & fruit);
 
 #endif //FRUIT_2963903581E544B6AABAEFD1E24314F4_H

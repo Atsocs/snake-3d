@@ -5,7 +5,6 @@
 #include "Game.h"
 
 #include <utility>
-#include <cassert>
 #include <algorithm>
 
 Game::Game() : Game(Snake{})
@@ -21,6 +20,7 @@ Game::Game(Snake snake)
 
 void Game::generateFruit()
 {
+
 	Fruit f{};
 	while (isPositionOccupied(f.position))
 	{
@@ -77,11 +77,10 @@ double Game::getSnakeSpeed()
 
 }
 
-void Game::moveSnake()
+void Game::move()
 {
-	snake.move();
 	const Position &snakeHead = snake.getHeadPosition();
-	auto found = std::find_if(fruits.begin(), fruits.end(), [&](const Fruit& fruit)
+	auto found = std::find_if(fruits.begin(), fruits.end(), [&](const Fruit &fruit)
 	{
 		return (snakeHead == fruit.position);
 	});
@@ -91,12 +90,18 @@ void Game::moveSnake()
 		fruits.erase(found);
 		generateFruit();
 	}
+}
 
+void Game::moveSnake()
+{
+	snake.move();
+	move();
 }
 
 void Game::turnSnakeTo(Direction direction)
 {
 	snake.turnTo(direction);
+	move();
 }
 
 void Game::eatFruit(std::list<Fruit>::iterator fruit)
@@ -106,4 +111,22 @@ void Game::eatFruit(std::list<Fruit>::iterator fruit)
 	score += fruit->score;
 	if (score < 0)
 	{ score = 0; }
+}
+
+std::ostream &operator<<(std::ostream &os, const Game &game)
+{
+	using std::endl;
+	os << "Game: " << "score " << game.score << endl;
+	os << game.snake;
+	os << "Fruits" << (game.fruits.empty() ? " is empty." : ": ") << endl;
+	for (const auto &fruit : game.fruits)
+	{
+		os << "\t" << fruit << endl;
+	}
+	return os;
+}
+
+bool Game::alive() const
+{
+	return snake.isAlive();
 }
