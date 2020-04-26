@@ -15,24 +15,27 @@ class Game
 public:
 	Game();
 	explicit Game(Snake snake);
-	void draw();
+	void draw() const;
 	[[nodiscard]] bool alive() const;
 	void generateFruit();
 	double getSnakeSpeed();
 	void moveSnake();
 	void turnSnakeTo(Direction direction);
 	void eatFruit(std::list<Fruit>::iterator fruit);
+	[[nodiscard]] int getScore() const;
 private:
 	int score;
 	std::list<Fruit> fruits;
 	Snake snake;
 	[[nodiscard]] bool isPositionOccupiedWithFruit(const Position &position) const;
 	[[nodiscard]] bool isPositionOccupied(const Position &position) const;
-	void drawFruits();
+	void drawFruits() const;
 	static void drawFruit(int x, int y);
 
 	friend std::ostream &operator<<(std::ostream &os, const Game &game);
-	void move();
+	void generateFruit(int count);
+	void searchForFruitsToEat(const Vector &snakeHeadNext);
+	void generateFruit(const Fruit &fruit);
 };
 
 std::ostream &operator<<(std::ostream &os, const Game &game);

@@ -15,7 +15,7 @@ int main(int, char **)
 
 	int frames{0};
 	MovesQueue movesQueue{};
-	Game game{Snake{8.0}};
+	Game game{Snake{}};
 	InitWindow(screenWidth, screenHeight, "Snakke");
 
 	SetTargetFPS(TARGET_FPS);               // Set our game to run at 60 frames-per-second
@@ -31,7 +31,7 @@ int main(int, char **)
 		{
 #ifdef SNAKKE_DEBUG
 			if (game.alive())
-			{ std::cout << game << std::endl; }
+			{ std::cout << "Before/" << game << std::endl; }
 #endif
 			if (movesQueue.empty())
 			{
@@ -41,6 +41,10 @@ int main(int, char **)
 			{
 				game.turnSnakeTo(movesQueue.getMove());
 			}
+#ifdef SNAKKE_DEBUG
+			if (game.alive())
+			{ std::cout << "After/" << game << std::endl; }
+#endif
 		}
 		++frames;
 		//----------------------------------------------------------------------------------
@@ -49,13 +53,7 @@ int main(int, char **)
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
 
-		ClearBackground(RAYWHITE);
-
-		DrawText("Snakke", GetScreenWidth() / 2 - 185, GetScreenHeight() / 2 - 50, 100, LIGHTGRAY);
-
-		game.draw();
-
-		DrawBorder();
+		DrawEverything(game);
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------

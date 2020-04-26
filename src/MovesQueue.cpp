@@ -21,10 +21,6 @@ void MovesQueue::add(Direction dir)
 {
 	if (lastPushed / 2 == dir / 2) return;
 	// now we guarantee we can add a move
-#ifdef SNAKKE_DEBUG_ALL
-	static int added{0};
-	std::cout << "MovesQueue::add(Direction dir):" << "move #" << ++added << std::endl;
-#endif
 	lastPushed = dir;
 	q.push(dir);
 }

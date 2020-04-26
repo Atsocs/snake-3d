@@ -22,7 +22,7 @@ public:
 	void eatFruit(Fruit &fruit);
 	[[nodiscard]] bool isPositionOccupied(const Position &p) const;
 	[[nodiscard]] double getSpeed() const;
-	[[nodiscard]] Position getHeadPosition() const;
+	[[nodiscard]] Vector getHead() const;
 	[[nodiscard]] bool isAlive() const;
 private:
 	[[nodiscard]] bool willCollide() const;

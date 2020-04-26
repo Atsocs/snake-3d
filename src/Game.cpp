@@ -15,7 +15,20 @@ Game::Game() : Game(Snake{})
 Game::Game(Snake snake)
 		: score{0}, fruits{}, snake{std::move(snake)}
 {
-	generateFruit();
+	generateFruit(Fruit{Position{{3, 4/*BOARD_SIZE / 2 - 1*/}}});
+}
+
+void Game::generateFruit(int count)
+{
+	for (int i = 0; i < count; ++i)
+	{ generateFruit(); }
+}
+
+void Game::generateFruit(const Fruit &f)
+{
+	if (isPositionOccupied(f.position))
+	{ return; }
+	fruits.push_back(f);
 }
 
 void Game::generateFruit()
@@ -49,13 +62,13 @@ bool Game::isPositionOccupied(const Position &position) const
 			 || snake.isPositionOccupied(position));
 }
 
-void Game::draw()
+void Game::draw() const
 {
 	drawFruits();
 	snake.draw();
 }
 
-void Game::drawFruits()
+void Game::drawFruits() const
 {
 	for (const auto &fruit : fruits)
 	{
@@ -77,12 +90,11 @@ double Game::getSnakeSpeed()
 
 }
 
-void Game::move()
+void Game::searchForFruitsToEat(const Vector &snakeHeadNext)
 {
-	const Position &snakeHead = snake.getHeadPosition();
 	auto found = std::find_if(fruits.begin(), fruits.end(), [&](const Fruit &fruit)
 	{
-		return (snakeHead == fruit.position);
+		return snakeHeadNext.inSamePlaceAs(Vector{fruit.position});
 	});
 	if (found != fruits.end())
 	{
@@ -94,14 +106,18 @@ void Game::move()
 
 void Game::moveSnake()
 {
+	Vector snakeHeadNext = (++snake.getHead());
+	searchForFruitsToEat(snakeHeadNext);
 	snake.move();
-	move();
 }
 
 void Game::turnSnakeTo(Direction direction)
 {
+	Vector snakeHeadNext = snake.getHead();
+	snakeHeadNext.direction = direction;
+	++snakeHeadNext;
+	searchForFruitsToEat(snakeHeadNext);
 	snake.turnTo(direction);
-	move();
 }
 
 void Game::eatFruit(std::list<Fruit>::iterator fruit)
@@ -129,4 +145,9 @@ std::ostream &operator<<(std::ostream &os, const Game &game)
 bool Game::alive() const
 {
 	return snake.isAlive();
+}
+
+int Game::getScore() const
+{
+	return score;
 }

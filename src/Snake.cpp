@@ -217,13 +217,9 @@ bool Snake::isPositionOccupied(const Position &p) const
 	return checkLine();
 }
 
-Position Snake::getHeadPosition() const
-{
-	return Position{head.origin};
-}
-
 std::ostream &operator<<(std::ostream &os, const Snake &snake)
 {
+//	assert(snake.mouth.empty());
 	static constexpr int identationCount = 1;
 	auto identation = std::string(identationCount, '\t');
 	using std::endl;
@@ -251,6 +247,11 @@ std::ostream &operator<<(std::ostream &os, const Snake &snake)
 bool Snake::isAlive() const
 {
 	return alive;
+}
+
+Vector Snake::getHead() const
+{
+	return head;
 }
 
 

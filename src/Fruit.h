@@ -12,15 +12,16 @@
 class Fruit
 {
 public:
-	explicit Fruit(int score = FRUIT_BASE_SCORE, int healthBenefit = FRUIT_BASE_HEALTH_BENEFIT);
+	explicit Fruit(Position p = Position{}, int score = FRUIT_BASE_SCORE,
+	               int healthBenefit = FRUIT_BASE_HEALTH_BENEFIT);
 	void eat();
 	bool eaten;
 	Position position;
 	int score;
 	int hp;
-	friend std::ostream & operator<< (std::ostream & os, const Fruit & fruit);
+	friend std::ostream &operator<<(std::ostream &os, const Fruit &fruit);
 };
 
-std::ostream & operator<< (std::ostream & os, const Fruit & fruit);
+std::ostream &operator<<(std::ostream &os, const Fruit &fruit);
 
 #endif //FRUIT_2963903581E544B6AABAEFD1E24314F4_H

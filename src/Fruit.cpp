@@ -4,9 +4,10 @@
 
 #include "Fruit.h"
 #include <cassert>
+#include <utility>
 
-Fruit::Fruit(int score, int healthBenefit)
-		: eaten{false}, position{}, score{score}, hp{healthBenefit}
+Fruit::Fruit(Position  p, int score, int healthBenefit)
+		: eaten{false}, position{std::move(p)}, score{score}, hp{healthBenefit}
 {
 	position.setRandom();
 	assert(!Vector{position}.isOutOfBounds());

@@ -5,11 +5,12 @@
 #ifndef OKAY_6D869709711A4E399E6AA38254D7750C_H
 #define OKAY_6D869709711A4E399E6AA38254D7750C_H
 
-#include "MovesQueue.h"
-
 void DrawBorder();
 
 bool isSpecialFrame(int frames, double speed);
+
+class Game;
+void DrawEverything(const Game & game);
 
 int numDigits(int number);
 
