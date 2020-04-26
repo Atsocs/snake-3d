@@ -2,6 +2,7 @@
 // Created by atsocs on 25/04/2020.
 //
 
+#include <cassert>
 #include "Constants.h"
 #include "Game.h"
 #include "okay.h"
@@ -20,8 +21,9 @@ bool isSpecialFrame(int frames, double speed)
 {
 	if (speed == 0.0)
 	{ return false; }
-	const int mod = static_cast<int>(TARGET_FPS / speed);
-	return frames % mod == (mod - 1);
+	static const int mod = static_cast<int>(TARGET_FPS / speed);
+	assert(mod != 0);
+	return (frames % mod) == 0;
 }
 
 int numDigits(int number)

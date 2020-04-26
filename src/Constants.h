@@ -18,10 +18,10 @@
 #endif
 #ifndef SNAKKE_SLOW
 #define BOARD_SIZE 15
-#define SNAKE_INITIAL_SPEED 8.0
+#define SNAKE_INITIAL_SPEED 6.0
 #endif
 
-#define TARGET_FPS 60
+#define TARGET_FPS (60)
 #define FRUITS_AT_BOARD 5
 #define BORDER_IN_PIXELS 10
 #define BORDER_COLOR RED

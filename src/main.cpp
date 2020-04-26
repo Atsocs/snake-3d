@@ -15,6 +15,7 @@ int main(int, char **)
 
 	int frames{0};
 	MovesQueue movesQueue{};
+	movesQueue.add(DIR_UP);
 	Game game{Snake{}};
 	InitWindow(screenWidth, screenHeight, "Snakke");
 

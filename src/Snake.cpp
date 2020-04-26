@@ -28,12 +28,42 @@ void Snake::resetHeadTail()
 
 void Snake::draw() const
 {
-	drawCell(head.origin[0], head.origin[1]);
-	for (const auto &turn : turns)
+	//todo: don't repeat yourself! this code is almost the same in 3 functions
+	const auto &myTail = tail;
+	const auto &myTurns = turns;
+	const auto &myHead = head;
+	Vector checkingFor = myTail;
+	Vector checkUntil;
+	if (myTurns.empty())
 	{
-		drawCell(turn.origin[0], turn.origin[1], PINK);
+		checkUntil = myHead;
 	}
-	drawCell(tail.origin[0], tail.origin[1], BLUE);
+	else
+	{
+		checkUntil = myTurns.front();
+	}
+	int index{0};
+
+	auto checkLine = [&]()
+	{
+#ifdef SNAKKE_DEBUG
+		//std::cout << "checkLine()" << std::endl;
+#endif
+		while (!checkingFor.inSamePlaceAs(checkUntil))
+		{
+			drawCell(checkingFor.origin[0], checkingFor.origin[1]);
+			++checkingFor;
+		}
+		checkingFor.direction = checkUntil.direction;
+	};
+	while (index < static_cast<int>(myTurns.size()))
+	{
+		checkLine();
+		++index;
+		checkUntil = (index < myTurns.size() ? myTurns[index] : myHead);
+	}
+	checkLine();
+	drawCell(checkingFor.origin[0], checkingFor.origin[1]);
 }
 
 void Snake::drawCell(int x, int y)
