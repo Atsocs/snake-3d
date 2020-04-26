@@ -21,7 +21,7 @@ Game::Game(Snake snake)
 void Game::generateFruit(int count)
 {
 	for (int i = 0; i < count; ++i)
-	{ generateFruit(); }
+	{ generateRandomFruit(); }
 }
 
 void Game::generateFruit(const Fruit &f)
@@ -31,10 +31,10 @@ void Game::generateFruit(const Fruit &f)
 	fruits.push_back(f);
 }
 
-void Game::generateFruit()
+void Game::generateRandomFruit()
 {
-
 	Fruit f{};
+	f.position.setRandom();
 	while (isPositionOccupied(f.position))
 	{
 		//todo: move only a little
@@ -100,7 +100,7 @@ void Game::searchForFruitsToEat(const Vector &snakeHeadNext)
 	{
 		eatFruit(found);
 		fruits.erase(found);
-		generateFruit();
+		generateRandomFruit();
 	}
 }
 

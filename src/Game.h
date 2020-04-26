@@ -17,7 +17,7 @@ public:
 	explicit Game(Snake snake);
 	void draw() const;
 	[[nodiscard]] bool alive() const;
-	void generateFruit();
+	void generateRandomFruit();
 	double getSnakeSpeed();
 	void moveSnake();
 	void turnSnakeTo(Direction direction);

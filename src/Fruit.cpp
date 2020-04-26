@@ -9,7 +9,7 @@
 Fruit::Fruit(Position  p, int score, int healthBenefit)
 		: eaten{false}, position{std::move(p)}, score{score}, hp{healthBenefit}
 {
-	position.setRandom();
+//	position.setRandom();
 	assert(!Vector{position}.isOutOfBounds());
 }
 
