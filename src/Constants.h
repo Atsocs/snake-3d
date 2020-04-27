@@ -18,7 +18,7 @@
 #define SNAKE_INITIAL_SPEED 3.0
 #endif
 #ifndef SNAKKE_SLOW
-#define SNAKE_INITIAL_SPEED 8.0
+#define SNAKE_INITIAL_SPEED 7.5
 #endif
 
 #define TARGET_FPS (60)

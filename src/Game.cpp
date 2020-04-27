@@ -17,7 +17,7 @@ Game::Game() : Game(Snake{})
 Game::Game(Snake snake)
 		: score{0}, fruits{}, snake{std::move(snake)}
 {
-	generateFruit();
+	generateFruit(BOARD_SIZE);
 }
 
 void Game::generateFruit(int count)
