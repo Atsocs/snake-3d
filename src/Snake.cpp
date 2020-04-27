@@ -12,6 +12,7 @@ Snake::Snake(int size, double speed)
 		  stomach{}
 {
 	resetHeadTail();
+	assert(head.origin.size() == DIMENSION);
 }
 
 Snake::Snake(double speed) : Snake(SNAKE_INITIAL_SIZE, speed)
@@ -21,14 +22,37 @@ Snake::Snake(double speed) : Snake(SNAKE_INITIAL_SIZE, speed)
 
 void Snake::resetHeadTail()
 {
-	tail.centralize();
-	tail.origin[0] = 1;
+//	tail.centralize(); //todo: choose right place to start snake
+//	tail.origin[0] = 1;
 	head = tail + (size - 1);
 }
 
-void Snake::drawCell(int x, int y)
+void Snake::drawCell(std::vector<int> &cellPosition)
 {
-	drawCell(x, y, SNAKE_COLOR);
+	static const std::vector<Color> SNAKE_COLOR{
+			Color{27, 94, 32, 255},
+			Color{46, 125, 50, 255},
+			Color{56, 142, 60, 255},
+			Color{67, 160, 71, 255},
+			Color{76, 175, 80, 255},
+			Color{102, 187, 106, 255},
+			Color{129, 199, 132, 255},
+	};
+	assert(SNAKE_COLOR.size() >= BOARD_SIZE);
+
+	if (cellPosition.size() >= 3)
+	{
+		drawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[cellPosition[2]]);
+	}
+	else if (cellPosition.size() == 2)
+	{
+		assert(false);
+		drawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[0]);
+	}
+	else
+	{
+		assert(false); //todo
+	}
 }
 
 void Snake::drawCell(int x, int y, Color color)
@@ -171,7 +195,7 @@ void Snake::draw() const
 	{
 		while (!checkingFor.inSamePlaceAs(checkUntil))
 		{
-			drawCell(checkingFor.origin[0], checkingFor.origin[1]);
+			drawCell(checkingFor.origin);
 			++checkingFor;
 		}
 		checkingFor.direction = checkUntil.direction;
@@ -183,7 +207,7 @@ void Snake::draw() const
 		checkUntil = (index < myTurns.size() ? myTurns[index] : myHead);
 	}
 	checkLine();
-	drawCell(checkingFor.origin[0], checkingFor.origin[1]);
+	drawCell(checkingFor.origin);
 }
 
 bool Snake::willCollide() const

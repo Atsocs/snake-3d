@@ -29,7 +29,7 @@ private:
 	[[nodiscard]] static bool
 	isCollidingState(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns);
 	void resetHeadTail();
-	static void drawCell(int x, int y);
+	static void drawCell(std::vector<int> &cellPosition);
 	static void drawCell(int x, int y, Color color);
 	bool alive;
 	int health;

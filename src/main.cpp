@@ -15,7 +15,6 @@ int main(int, char **)
 
 	int frames{0};
 	MovesQueue movesQueue{};
-	movesQueue.add(DIR_UP);
 	Game game{Snake{}};
 	InitWindow(screenWidth, screenHeight, "Snakke");
 
@@ -43,8 +42,8 @@ int main(int, char **)
 				game.turnSnakeTo(movesQueue.getMove());
 			}
 #ifdef SNAKKE_DEBUG
-			if (game.alive())
-			{ std::cout << "After/" << game << std::endl; }
+//			if (game.alive())
+//			{ std::cout << "After/" << game << std::endl; }
 #endif
 		}
 		++frames;

@@ -84,7 +84,7 @@ bool Vector::isOutOfBounds() const
 
 std::ostream &operator<<(std::ostream &os, const Vector &vector)
 {
-	static const std::vector<std::string_view> directions{"RIGHT", "LEFT", "DOWN", "UP"};
+	static const std::vector<std::string_view> directions{"RIGHT", "LEFT", "DOWN", "UP", "BELOW", "ABOVE"};
 	assert(directions.size() == MAX_DIRECTION);
 
 	static const int digits = numDigits(BOARD_SIZE - 1);

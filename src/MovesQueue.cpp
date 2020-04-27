@@ -54,4 +54,6 @@ void handleMoveKeys(MovesQueue &q)
 	else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) q.add(DIR_LEFT);
 	else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) q.add(DIR_DOWN);
 	else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) q.add(DIR_UP);
+	else if (/*(IsKeyDown(???) ||*/ IsKeyDown(KEY_Q)) q.add(DIR_BELOW);
+	else if (/*(IsKeyDown(???) ||*/ IsKeyDown(KEY_E)) q.add(DIR_ABOVE);
 }

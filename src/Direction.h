@@ -11,6 +11,8 @@ enum Direction
 	DIR_LEFT,
 	DIR_DOWN,
 	DIR_UP,
+	DIR_BELOW,
+	DIR_ABOVE,
 
 	MAX_DIRECTION
 };
