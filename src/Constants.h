@@ -9,17 +9,16 @@
 #include "raylib.h"
 
 //#define SNAKKE_DEBUG
-#define SNAKKE_SLOW
+//#define SNAKKE_SLOW
 
 #define BISSECTRA_HI_SCORE 37
+#define BOARD_SIZE 18
 
 #ifdef SNAKKE_SLOW
-#define BOARD_SIZE 12
 #define SNAKE_INITIAL_SPEED 3.0
 #endif
 #ifndef SNAKKE_SLOW
-#define BOARD_SIZE 9
-#define SNAKE_INITIAL_SPEED 6.0
+#define SNAKE_INITIAL_SPEED 8.0
 #endif
 
 #define TARGET_FPS (60)
@@ -53,8 +52,8 @@
 
 static const std::vector<Color> SNAKE_COLOR{
 		// attention!
-		RED,
-		YELLOW,
+		BLACK,
+		ORANGE,
 		// green part
 		Color{27, 94, 32, 255},
 		Color{46, 125, 50, 255},

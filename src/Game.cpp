@@ -6,6 +6,7 @@
 
 #include <utility>
 #include <algorithm>
+#include <cassert>
 
 Game::Game() : Game(Snake{})
 {
@@ -15,7 +16,7 @@ Game::Game() : Game(Snake{})
 Game::Game(Snake snake)
 		: score{0}, fruits{}, snake{std::move(snake)}
 {
-	generateFruit(Fruit{Position{{3, 4/*BOARD_SIZE / 2 - 1*/}}});
+	generateFruit();
 }
 
 void Game::generateFruit(int count)
@@ -71,16 +72,35 @@ void Game::drawFruits() const
 {
 	for (const auto &fruit : fruits)
 	{
-		drawFruit(fruit.position.origin[0], fruit.position.origin[1]);
+		drawFruit(fruit.position.origin[0], fruit.position.origin[1], SNAKE_COLOR[fruit.position.origin[2]]);
 	}
 }
 
-void Game::drawFruit(int x, int y)
+void Game::drawFruit(const Position & p)
+{
+	assert(SNAKE_COLOR.size() >= BOARD_SIZE);
+	if (p.origin.size() >= 3)
+	{
+		drawFruit(p.origin[0], p.origin[1], SNAKE_COLOR[p.origin[2]]);
+	}
+	else if (p.origin.size() == 2)
+	{
+		assert(false);
+		drawFruit(p.origin[0], p.origin[1], FRUIT_COLOR);
+	}
+	else
+	{
+		assert(false); //todo
+	}
+}
+
+
+void Game::drawFruit(int x, int y, Color color)
 {
 	DrawEllipse(LEFT_PANEL_WIDTH + 2*BORDER_IN_PIXELS + FRUIT_PADDING_WIDTH_IN_PIXELS + FRUIT_RADIUS_H + x * CELL_WIDTH_IN_PIXELS,
 	            BORDER_IN_PIXELS + FRUIT_PADDING_HEIGHT_IN_PIXELS + FRUIT_RADIUS_V + y * CELL_HEIGHT_IN_PIXELS,
 	            FRUIT_RADIUS_H,
-	            FRUIT_RADIUS_V, FRUIT_COLOR);
+	            FRUIT_RADIUS_V, color);
 }
 
 double Game::getSnakeSpeed()

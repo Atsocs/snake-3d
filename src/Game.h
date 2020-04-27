@@ -30,12 +30,13 @@ private:
 	[[nodiscard]] bool isPositionOccupiedWithFruit(const Position &position) const;
 	[[nodiscard]] bool isPositionOccupied(const Position &position) const;
 	void drawFruits() const;
-	static void drawFruit(int x, int y);
+	static void drawFruit(int x, int y, Color color);
 
 	friend std::ostream &operator<<(std::ostream &os, const Game &game);
-	void generateFruit(int count);
+	void generateFruit(int count=1);
 	void searchForFruitsToEat(const Vector &snakeHeadNext);
 	void generateFruit(const Fruit &fruit);
+	static void drawFruit(const Position &p);
 };
 
 std::ostream &operator<<(std::ostream &os, const Game &game);

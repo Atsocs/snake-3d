@@ -38,6 +38,7 @@ std::ostream &operator<<(std::ostream &os, const Position &position)
 {
 	static const int digits = numDigits(BOARD_SIZE - 1);
 	os << '[';
+	assert(position.origin.size() == DIMENSION);
 	for (int index{0}; index < position.origin.size(); ++index)
 	{
 		os << std::setw(digits) << position.origin[index];
