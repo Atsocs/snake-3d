@@ -5,6 +5,7 @@
 #include "Constants.h"
 #include "Snake.h"
 #include "okay.h"
+#include "ColorsCharlesCorrea.h"
 #include <cassert>
 #include <iostream>
 
@@ -30,15 +31,15 @@ void Snake::resetHeadTail()
 
 void Snake::drawCell(std::vector<int> &cellPosition)
 {
-	assert(SNAKE_COLOR.size() >= BOARD_SIZE);
+//	assert(SNAKE_COLOR.size() >= BOARD_SIZE);
 	if (cellPosition.size() >= 3)
 	{
-		DrawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[cellPosition[2]]);
+		DrawCell(cellPosition[0], cellPosition[1], GetCharlesColor(cellPosition[2] ));
 	}
 	else if (cellPosition.size() == 2)
 	{
 		assert(false);
-		DrawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[0]);
+		DrawCell(cellPosition[0], cellPosition[1], GetCharlesColor(cellPosition[2] ));
 	}
 	else
 	{

@@ -12,7 +12,7 @@
 //#define SNAKKE_SLOW
 
 #define BISSECTRA_HI_SCORE 37
-#define BOARD_SIZE 18
+#define BOARD_SIZE 20
 
 #ifdef SNAKKE_SLOW
 #define SNAKE_INITIAL_SPEED 3.0
@@ -49,30 +49,5 @@
 #define HEALTH_MAX 100
 #define FRUIT_BASE_SCORE 1
 #define FRUIT_BASE_HEALTH_BENEFIT 5
-
-static const std::vector<Color> SNAKE_COLOR{
-		// attention!
-		BLACK,
-		ORANGE,
-		// green part
-		Color{27, 94, 32, 255},
-		Color{46, 125, 50, 255},
-		Color{56, 142, 60, 255},
-		Color{67, 160, 71, 255},
-		Color{76, 175, 80, 255},
-		Color{102, 187, 106, 255},
-		Color{129, 199, 132, 255},
-		// blue part
-		Color{100, 181, 246, 255},
-		Color{66, 165, 245, 255},
-		Color{33, 150, 243, 255},
-		Color{30, 136, 229,255},
-		Color{25, 118, 210,255},
-		Color{21, 101, 192, 255},
-		Color{13, 71, 161, 255},
-		// attention!
-		YELLOW,
-		RED
-};
 
 #endif //CONSTANTS_3BB41D66AF15491BAB3076FA192ECAF3_H

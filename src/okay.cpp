@@ -7,6 +7,8 @@
 #include "Game.h"
 #include "okay.h"
 #include "string"
+#include "ColorsCharlesCorrea.h"
+
 
 void DrawBorder()
 {
@@ -37,10 +39,10 @@ void DrawBorder()
 
 void DrawLeftPanel()
 {
-	assert(SNAKE_COLOR.size() >= BOARD_SIZE);
+//	assert(GetColor(ColorCharlesCorrea::APPLE_GREEN, 3).size() >= BOARD_SIZE);
 	for (int i = 0; i < BOARD_SIZE; ++i)
 	{
-		DrawCell(0, i, SNAKE_COLOR[i], 0);
+		DrawCell(0, i, GetCharlesColor(i), 0);
 	}
 }
 
