@@ -4,6 +4,7 @@
 
 #include "Constants.h"
 #include "Snake.h"
+#include "okay.h"
 #include <cassert>
 #include <iostream>
 
@@ -29,39 +30,20 @@ void Snake::resetHeadTail()
 
 void Snake::drawCell(std::vector<int> &cellPosition)
 {
-	static const std::vector<Color> SNAKE_COLOR{
-			Color{27, 94, 32, 255},
-			Color{46, 125, 50, 255},
-			Color{56, 142, 60, 255},
-			Color{67, 160, 71, 255},
-			Color{76, 175, 80, 255},
-			Color{102, 187, 106, 255},
-			Color{129, 199, 132, 255},
-	};
 	assert(SNAKE_COLOR.size() >= BOARD_SIZE);
-
 	if (cellPosition.size() >= 3)
 	{
-		drawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[cellPosition[2]]);
+		DrawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[cellPosition[2]]);
 	}
 	else if (cellPosition.size() == 2)
 	{
 		assert(false);
-		drawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[0]);
+		DrawCell(cellPosition[0], cellPosition[1], SNAKE_COLOR[0]);
 	}
 	else
 	{
 		assert(false); //todo
 	}
-}
-
-void Snake::drawCell(int x, int y, Color color)
-{
-	DrawRectangle(BORDER_IN_PIXELS + CELL_PADDING_WIDTH_IN_PIXELS + x * CELL_WIDTH_IN_PIXELS,
-	              BORDER_IN_PIXELS + CELL_PADDING_HEIGHT_IN_PIXELS + y * CELL_HEIGHT_IN_PIXELS,
-	              CELL_WIDTH_IN_PIXELS - CELL_PADDING_WIDTH_IN_PIXELS * 2,
-	              CELL_HEIGHT_IN_PIXELS - CELL_PADDING_HEIGHT_IN_PIXELS * 2,
-	              color);
 }
 
 double Snake::getSpeed() const

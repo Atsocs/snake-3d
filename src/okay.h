@@ -5,13 +5,17 @@
 #ifndef OKAY_6D869709711A4E399E6AA38254D7750C_H
 #define OKAY_6D869709711A4E399E6AA38254D7750C_H
 
-void DrawBorder();
-
-bool isSpecialFrame(int frames, double speed);
+#include "Constants.h"
 
 class Game;
-void DrawEverything(const Game & game);
 
+void DrawBorder();
+void DrawLeftPanel();
+void DrawCell(int x, int y, Color color, int leftPadding = (LEFT_PANEL_WIDTH + BORDER_IN_PIXELS));
+bool isSpecialFrame(int frames, double speed);
 int numDigits(int number);
+void DrawSnakkeText();
+void DrawScores(const Game &game);
+void DrawEverything(const Game &game);
 
 #endif //OKAY_6D869709711A4E399E6AA38254D7750C_H
