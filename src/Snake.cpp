@@ -126,7 +126,8 @@ bool Snake::isPositionOccupied(const Position &p) const
 	return check_if(head, tail, turns, Vector{p});
 }
 
-bool Snake::check_if(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns, const Vector toTest)
+bool
+Snake::check_if(const Vector &myHead, const Vector &myTail, const std::deque<Vector> &myTurns, const Vector &toTest)
 {
 	Vector checkingFor = myTail;
 	Vector checkUntil = (myTurns.empty() ? myHead : myTurns.front());
@@ -159,7 +160,6 @@ bool Snake::check_if(const Vector &myHead, const Vector &myTail, const std::dequ
 
 void Snake::draw() const
 {
-	//todo: don't repeat yourself! this code is almost the same in 3 functions
 	const auto &myTail = tail;
 	const auto &myTurns = turns;
 	const auto &myHead = head;

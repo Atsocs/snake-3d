@@ -37,7 +37,6 @@ void Game::generateRandomFruit()
 	f.position.setRandom();
 	while (isPositionOccupied(f.position))
 	{
-		//todo: move only a little
 		f.position.setRandom();
 	}
 	fruits.push_back(f);
