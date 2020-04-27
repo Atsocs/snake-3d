@@ -24,8 +24,8 @@ Snake::Snake(double speed) : Snake(SNAKE_INITIAL_SIZE, speed)
 
 void Snake::resetHeadTail()
 {
-//	tail.centralize(); //todo: choose right place to start snake
-//	tail.origin[0] = 1;
+	tail.centralize();
+	tail.origin[0] = 1;
 	head = tail + (size - 1);
 }
 
