@@ -3,11 +3,11 @@
 //
 
 #include <cassert>
-#include "Constants.h"
+#include "hardcoded/Constants.h"
 #include "Game.h"
-#include "okay.h"
+#include "Okay.h"
 #include "string"
-#include "ColorsCharlesCorrea.h"
+#include "hardcoded/ColorsCharlesCorrea.h"
 
 
 void DrawBorder()

@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Constants.h"
-#include "okay.h"
-#include "MovesQueue.h"
+#include "hardcoded/Constants.h"
+#include "Okay.h"
+#include "classes/MovesQueue.h"
 #include "raylib.h"
 #include "Snake.h"
 #include "Game.h"

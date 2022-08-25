@@ -5,9 +5,9 @@
 #ifndef FRUIT_2963903581E544B6AABAEFD1E24314F4_H
 #define FRUIT_2963903581E544B6AABAEFD1E24314F4_H
 
-#include "Constants.h"
-#include "Vector.h"
-#include "Position.h"
+#include "hardcoded/Constants.h"
+#include "classes/Vector.h"
+#include "classes/Position.h"
 
 class Fruit
 {

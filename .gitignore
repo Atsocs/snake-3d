@@ -9,4 +9,5 @@ cmake-build-relwithdebinfo
 *.out
 *.app
 .idea
+build/
 

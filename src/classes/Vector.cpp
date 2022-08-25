@@ -2,7 +2,7 @@
 // Created by atsocs on 25/04/2020.
 //
 
-#include "okay.h"
+#include "../Okay.h"
 #include "Vector.h"
 #include <iomanip>
 #include <cassert>

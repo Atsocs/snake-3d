@@ -3,7 +3,7 @@
 //
 
 #include "Game.h"
-#include "ColorsCharlesCorrea.h"
+#include "hardcoded/ColorsCharlesCorrea.h"
 
 #include <utility>
 #include <algorithm>

@@ -2,10 +2,10 @@
 // Created by atsocs on 25/04/2020.
 //
 
-#ifndef OKAY_6D869709711A4E399E6AA38254D7750C_H
-#define OKAY_6D869709711A4E399E6AA38254D7750C_H
+#ifndef OKAY_5CCD0C7B8D764E2BAFC7A80F8B54DCB0_H
+#define OKAY_5CCD0C7B8D764E2BAFC7A80F8B54DCB0_H
 
-#include "Constants.h"
+#include "hardcoded/Constants.h"
 
 class Game;
 
@@ -18,4 +18,4 @@ void DrawSnakkeText();
 void DrawScores(const Game &game);
 void DrawEverything(const Game &game);
 
-#endif //OKAY_6D869709711A4E399E6AA38254D7750C_H
+#endif //OKAY_5CCD0C7B8D764E2BAFC7A80F8B54DCB0_H

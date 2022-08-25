@@ -2,10 +2,10 @@
 // Created by atsocs on 25/04/2020.
 //
 
-#include "Constants.h"
+#include "hardcoded/Constants.h"
 #include "Snake.h"
-#include "okay.h"
-#include "ColorsCharlesCorrea.h"
+#include "Okay.h"
+#include "hardcoded/ColorsCharlesCorrea.h"
 #include <cassert>
 #include <iostream>
 

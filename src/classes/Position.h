@@ -5,7 +5,7 @@
 #ifndef POSITION_574FC5C34CDD459C92BA1F462392BE14_H
 #define POSITION_574FC5C34CDD459C92BA1F462392BE14_H
 
-#include "Constants.h"
+#include "../hardcoded/Constants.h"
 
 #include <iostream>
 #include <vector>

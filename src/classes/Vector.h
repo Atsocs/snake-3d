@@ -5,7 +5,7 @@
 #ifndef VECTOR_C14AC72190144CEC9580B7AF89EABAD3_H
 #define VECTOR_C14AC72190144CEC9580B7AF89EABAD3_H
 
-#include "Constants.h"
+#include "../hardcoded/Constants.h"
 #include "Direction.h"
 #include "Position.h"
 #include <vector>

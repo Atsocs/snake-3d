@@ -5,7 +5,7 @@
 #ifndef GAME_1A8FE4FF80444B289D05EF4CA4648FE7_H
 #define GAME_1A8FE4FF80444B289D05EF4CA4648FE7_H
 
-#include "Constants.h"
+#include "hardcoded/Constants.h"
 #include "Fruit.h"
 #include "Snake.h"
 #include <list>

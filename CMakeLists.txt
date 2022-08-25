@@ -32,7 +32,7 @@ endif()
 
 # This is the main part:
 
-add_executable(${PROJECT_NAME} src/Position.h src/Position.cpp src/main.cpp src/Constants.h src/okay.cpp src/okay.h src/MovesQueue.cpp src/MovesQueue.h src/Vector.cpp src/Vector.h src/Direction.h src/Snake.cpp src/Snake.h src/Direction.cpp src/Fruit.cpp src/Fruit.h src/Game.cpp src/Game.h src/ColorsCharlesCorrea.cpp src/ColorsCharlesCorrea.h)
+add_executable(${PROJECT_NAME} src/classes/Position.h src/classes/Position.cpp src/main.cpp src/hardcoded/Constants.h src/Okay.cpp src/Okay.h src/classes/MovesQueue.cpp src/classes/MovesQueue.h src/classes/Vector.cpp src/classes/Vector.h src/classes/Direction.h src/Snake.cpp src/Snake.h src/classes/Direction.cpp src/Fruit.cpp src/Fruit.h src/Game.cpp src/Game.h src/hardcoded/ColorsCharlesCorrea.cpp src/hardcoded/ColorsCharlesCorrea.h)
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 

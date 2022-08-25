@@ -6,7 +6,7 @@
 #define SNAKE_E8F14F9C6AAF4C8C9A63581A42E82530_H
 
 
-#include "Vector.h"
+#include "classes/Vector.h"
 #include "Fruit.h"
 #include <deque>
 #include <iostream>
